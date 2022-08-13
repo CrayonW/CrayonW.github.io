@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crayonw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Everyone should take action with a drem and be strong with a reason,If you heart has no place to perch on,youwill always be a drifter no matter where you are.一个人至少拥有一个梦想，有一个理由去坚强。心若没有栖息的地方，到哪里都是流浪">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络工程师面试题">
+<meta property="og:url" content="https://crayonw.github.io/2022/08/14/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98/">
+<meta property="og:site_name" content="Crayon">
+<meta property="og:description" content="Everyone should take action with a drem and be strong with a reason,If you heart has no place to perch on,youwill always be a drifter no matter where you are.一个人至少拥有一个梦想，有一个理由去坚强。心若没有栖息的地方，到哪里都是流浪">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-13T16:03:37.000Z">
+<meta property="article:modified_time" content="2022-08-13T16:11:25.222Z">
+<meta property="article:author" content="crayon">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="交换机">
+<meta property="article:tag" content="路由器">
+<meta property="article:tag" content="防火墙">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crayonw.github.io/2022/08/14/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>网络工程师面试题 | Crayon</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Crayon</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个服务器，网络项目交付工程师，业余程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crayonw.github.io/2022/08/14/%E7%BD%91%E7%BB%9C%E5%B7%A5%E7%A8%8B%E5%B8%88%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="crayon">
+      <meta itemprop="description" content="希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Crayon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络工程师面试题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-14 00:03:37 / 修改时间：00:11:25" itemprop="dateCreated datePublished" datetime="2022-08-14T00:03:37+08:00">2022-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">专业知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote><p>Everyone should take action with a drem and be strong with a reason,If you heart has no place to perch on,youwill always be a drifter no matter where you are.一个人至少拥有一个梦想，有一个理由去坚强。心若没有栖息的地方，到哪里都是流浪</p>
+</blockquote>
+
+<span id="more"></span>
+
+<h3 id="1-TCP和UDP都可以实现客户端-x2F-服务端通信，这两个协议有哪些区别？"><a href="#1-TCP和UDP都可以实现客户端-x2F-服务端通信，这两个协议有哪些区别？" class="headerlink" title="1.TCP和UDP都可以实现客户端&#x2F;服务端通信，这两个协议有哪些区别？"></a>1.TCP和UDP都可以实现客户端&#x2F;服务端通信，这两个协议有哪些区别？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. TCP传输控制协议=》有连接，可靠，开销大（需要三次握手，数据补发等，耗时长，通信延迟大）</span><br><span class="line">2. UDP用户数据报协议=》无连接，不可靠，开销小（适合传输少量数据，连接速度快，耗时短，延迟小）</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-网络通信中的MAC地址指的是什么，其作用和地址构成是怎么样的？"><a href="#2-网络通信中的MAC地址指的是什么，其作用和地址构成是怎么样的？" class="headerlink" title="2.网络通信中的MAC地址指的是什么，其作用和地址构成是怎么样的？"></a>2.网络通信中的MAC地址指的是什么，其作用和地址构成是怎么样的？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MAC指Media Access Control，主要是用来标记网络接口的物理地址</span><br><span class="line">MAC地址是由6个字节（6Byte=6*8bit）组成，长度为48位，其中前3个字节是全球范围内的网络设备厂商代码，后3个字节为接口卡的地址</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-ARP是第几层的协议，其作用是什么？"><a href="#3-ARP是第几层的协议，其作用是什么？" class="headerlink" title="3.ARP是第几层的协议，其作用是什么？"></a>3.ARP是第几层的协议，其作用是什么？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ARP是第2层数据链路层的协议，其作用是根据IP地址获取物理地址，实现数据帧的快速封装</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-简单说一下交换机的原理"><a href="#4-简单说一下交换机的原理" class="headerlink" title="4.简单说一下交换机的原理"></a>4.简单说一下交换机的原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">交换机是进行数据交换的设备，一般交换机主要是工作在第2层数据链路层的设备，通过定制的交换芯片进行不同MAC地址在不同的端口间转发数据，主要依据为MAC地址表，其工作步骤如下：</span><br><span class="line">1. 生成MAC地址表：当交换机在一个端口收到数据帧时，会将数据帧中的源MAC地址与入端口进行关联，形成MAC地址表条目</span><br><span class="line">2. 查找MAC地址表：将收到的数据帧mac地址与mac地址表中的条目进行比较，如果能找到将数据帧根据表中对应端口转发出去，如果没有找到，就进行广播从除来源端口的其他端口广播出去</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-请列举你所知道的的应用层的协议有哪些，各自的作用及标准端口是什么？"><a href="#5-请列举你所知道的的应用层的协议有哪些，各自的作用及标准端口是什么？" class="headerlink" title="5.请列举你所知道的的应用层的协议有哪些，各自的作用及标准端口是什么？"></a>5.请列举你所知道的的应用层的协议有哪些，各自的作用及标准端口是什么？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.DNS，域名解析协议（实现域名-IP地址查询）TCP53（数据同步），UDP53（查询）</span><br><span class="line">2.FTP，文件传输协议（提供文件下载/上传）TCP21（控制连接），TCP20（数据链接）</span><br><span class="line">3.HTTP，超文本传输协议（提供网页资源传输接口），TCP80</span><br><span class="line">4.HTTPS，安全HTTP，TCP443</span><br><span class="line">5.SMTP，简单邮件传输协议（用来发送和传递邮件），TCP25</span><br><span class="line">6.TFTP，文件传输，UDP69</span><br><span class="line">7.SSH，安全命令行协议（提供远程管理设备的安全通道），TCP22</span><br><span class="line">8.TELNET，远程网络终端协议（提供远程管理设备的接口），TCP23</span><br><span class="line">9.IMAP，Internet邮件访问协议（为客户端提供在线管理邮件接口），TCP143</span><br><span class="line">10.POP3，邮局协议（为客户端提供收取邮件接口），TCP110</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-OSI模型由下到上依次包括那几层？网络通信中各层的PDU单位分别是什么"><a href="#6-OSI模型由下到上依次包括那几层？网络通信中各层的PDU单位分别是什么" class="headerlink" title="6.OSI模型由下到上依次包括那几层？网络通信中各层的PDU单位分别是什么"></a>6.OSI模型由下到上依次包括那几层？网络通信中各层的PDU单位分别是什么</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">物理层（位），数据链路层（帧），网络层（包），传输层（段），会话层，表示层，应用层</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-计算机网络的定义，并谈谈你对网络的理解"><a href="#7-计算机网络的定义，并谈谈你对网络的理解" class="headerlink" title="7.计算机网络的定义，并谈谈你对网络的理解"></a>7.计算机网络的定义，并谈谈你对网络的理解</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把分布在不同地点且具有独立功能的多个计算机，通过通信设备和线路连接起来，在功能完善的网络软件运行下，以实现网络中资源共享为目标的系统</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-简述三次握手是什么？"><a href="#8-简述三次握手是什么？" class="headerlink" title="8.简述三次握手是什么？"></a>8.简述三次握手是什么？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.客户端发起通信请求，并进入SYN_SENT状态，等待服务端确认</span><br><span class="line">2.服务端响应客户端请求，并进入SYN_RECV状态，并请求客户进行确认通信要求</span><br><span class="line">3.客户端确认请求通信</span><br><span class="line">完成tcp三次握手，此时一个通信虚链路已经建立，客户端和服务端处于ESTABLISHED（正常数据传输状态）</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-交换机和集线器有什么区别？"><a href="#9-交换机和集线器有什么区别？" class="headerlink" title="9.交换机和集线器有什么区别？"></a>9.交换机和集线器有什么区别？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">交换机在OSI第2层，集线器在OSI第1层</span><br><span class="line">集线器通信时是采用广播的方式，共同占用带宽</span><br><span class="line">交换机是交互式，每个用户独享带宽</span><br><span class="line">集线器只能采用半双工方式进行传输（要么接受数据，要么发送数据）</span><br><span class="line">交换机采用全双工方式来传输数据</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-交换机和路由器有什么区别？"><a href="#10-交换机和路由器有什么区别？" class="headerlink" title="10.交换机和路由器有什么区别？"></a>10.交换机和路由器有什么区别？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">交换机第2层，路由器第3层</span><br><span class="line">寻址方式不通，交换机mac地址，路由器IP地址</span><br><span class="line">转发速度不同，交换机转发速度快，路由器转发速度相对慢</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-IP数据包格式是什么？"><a href="#11-IP数据包格式是什么？" class="headerlink" title="11.IP数据包格式是什么？"></a>11.IP数据包格式是什么？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IP包头最短为20字节，包括：版本号，报头长短，优先级，数据报长度，协议字段，源IP地址，目标IP地址等</span><br></pre></td></tr></table></figure>
+
+<h3 id="12-TTL是什么？作用是什么？哪些工具会用到它"><a href="#12-TTL是什么？作用是什么？哪些工具会用到它" class="headerlink" title="12.TTL是什么？作用是什么？哪些工具会用到它"></a>12.TTL是什么？作用是什么？哪些工具会用到它</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TTL指生产时间，数据包在经过一个路由器的时候，数据会减一，路由器之间可能会形成环路，使用TTL可避免数据包在这个环里一直循环</span><br></pre></td></tr></table></figure>
+
+<h3 id="13-什么是DNS域名系统，简单描述其工作原理"><a href="#13-什么是DNS域名系统，简单描述其工作原理" class="headerlink" title="13.什么是DNS域名系统，简单描述其工作原理"></a>13.什么是DNS域名系统，简单描述其工作原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">进行地址名与IP地址的转换</span><br></pre></td></tr></table></figure>
+
+<h3 id="14-什么是划分子网"><a href="#14-什么是划分子网" class="headerlink" title="14.什么是划分子网"></a>14.什么是划分子网</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过网络号和主机号之间的区分，将一个大型的网络划分为多个较小的网络，划分后由诸多好处，减少了网络的开销，同一子网内的设备，只有2层就可以进行数据交换，涉及到子网时要有子网掩码，一个涉及到了子网的IP地址的网络号等于改IP地址与子网掩码的于运算结果</span><br></pre></td></tr></table></figure>
+
+<h3 id="15-网络接口卡（网卡）的功能"><a href="#15-网络接口卡（网卡）的功能" class="headerlink" title="15.网络接口卡（网卡）的功能"></a>15.网络接口卡（网卡）的功能</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.进行串行/并行转换</span><br><span class="line">2.对数据进行缓存</span><br><span class="line">3.在计算机的操作系统安装设备驱动成</span><br><span class="line">4.实现以太网协议</span><br></pre></td></tr></table></figure>
+
+<h3 id="16-什么是子网掩码"><a href="#16-什么是子网掩码" class="headerlink" title="16.什么是子网掩码"></a>16.什么是子网掩码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">子网掩码是标志两个IP地址是否同属于一个子网的，也是32位二进制地址，其每一个为1代表该位是网络位，为0代表主机位。它和IP地址一样也是使用点式十进制来表示的。如果两个IP地址在子网掩码的按位与的计算下所得结果相同，即表明它们共属于同一子网中</span><br></pre></td></tr></table></figure>
+
+<h3 id="17-TCP和UDP应用场景"><a href="#17-TCP和UDP应用场景" class="headerlink" title="17.TCP和UDP应用场景"></a>17.TCP和UDP应用场景</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TCP: SMTP(电子邮件)、TELNET(远程终端接入)、HTTP(万维网)、FTP(文件传输)</span><br><span class="line">UDP: DNS(域名转换)、TFTP(文件传输)、SNMP(网络管理)、NFS(远程文件服务器)</span><br></pre></td></tr></table></figure>
+
+<h3 id="18-什么事端口号？有何作用？"><a href="#18-什么事端口号？有何作用？" class="headerlink" title="18.什么事端口号？有何作用？"></a>18.什么事端口号？有何作用？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">软件端口是应用层各种协议进行与运输实体进行层间交互的一种地址</span><br><span class="line">1.服务端使用的端口号（常用熟知）</span><br><span class="line">2.客户端使用端口号（短暂）</span><br></pre></td></tr></table></figure>
+
+<h3 id="19-两段ping不通可能存在的问题有哪些？"><a href="#19-两段ping不通可能存在的问题有哪些？" class="headerlink" title="19.两段ping不通可能存在的问题有哪些？"></a>19.两段ping不通可能存在的问题有哪些？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.网线问题，物理端口问题</span><br><span class="line">2.局域网设置问题，是否安装了必要的网络协议，IP地址是否设置正确</span><br><span class="line">3.网卡驱动是否安装</span><br><span class="line">4.防火墙设置是否拦截</span><br><span class="line">5.可能存在什么软件阻止ping包</span><br></pre></td></tr></table></figure>
+
+<h3 id="20-使用ping命令一般步骤事什么"><a href="#20-使用ping命令一般步骤事什么" class="headerlink" title="20.使用ping命令一般步骤事什么"></a>20.使用ping命令一般步骤事什么</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.ping 127.0.0.1 查看TCP/IP协议及配置是否正确</span><br><span class="line">2.ping验证是否正确地添加到网络</span><br><span class="line">3.ping验证网关是否运行以及能否与本地主机通讯</span><br><span class="line">4.ping验证能否通过路由器通讯，不通说明线路可能存在问题或使用了防火墙</span><br></pre></td></tr></table></figure>
+
+<h3 id="21-请简单介绍一下VLAN技术"><a href="#21-请简单介绍一下VLAN技术" class="headerlink" title="21.请简单介绍一下VLAN技术"></a>21.请简单介绍一下VLAN技术</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">VLAN即Virtual LAN（虚拟局域网），指在物理网络中根据业务需求划分的逻辑网络，不同VLAN之间等同于物理隔离，也可以按需要连通。</span><br><span class="line">VLAN本质是一种2层技术，通过交换机的逻辑管理来实现广播域的隔离，从而可以减少数据广播风暴队交换网络的影响，降低了网络管理难度，同时可以实现网络规模的灵活扩展</span><br></pre></td></tr></table></figure>
+
+<h3 id="22-Trunk链路与ACCESS链路的区别是什么"><a href="#22-Trunk链路与ACCESS链路的区别是什么" class="headerlink" title="22.Trunk链路与ACCESS链路的区别是什么"></a>22.Trunk链路与ACCESS链路的区别是什么</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.Trunk链路同时支持多个VLAN的数据转发，数据携带VLAN标签（native vlan除外）</span><br><span class="line">2.ACCESS链路同一时刻只能传输一个VLAN的数据，发送和接受的数据，都没有标签</span><br></pre></td></tr></table></figure>
+
+<h3 id="23-什么是STP协议？其作用和工作原理"><a href="#23-什么是STP协议？其作用和工作原理" class="headerlink" title="23.什么是STP协议？其作用和工作原理"></a>23.什么是STP协议？其作用和工作原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">STP是用来当二层网络存在冗余链路的情况下，用来防止二层转发环路的发生，是通过相连的交换机互相发送和比较BPDU，从而确保网络中数据仅存在一条最短的，无环，二层数据转发路径</span><br><span class="line">选举过程：</span><br><span class="line">1.确认交换机的角色：根交换机和非根交换机</span><br><span class="line">2.确认端口的角色：根端口，指定端口和非指定端口</span><br><span class="line">3.确认端口的状态：down，listening，learning,forwarding,blocking</span><br></pre></td></tr></table></figure>
+
+<h3 id="24-请描述一下路由器的工作原理"><a href="#24-请描述一下路由器的工作原理" class="headerlink" title="24.请描述一下路由器的工作原理"></a>24.请描述一下路由器的工作原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">路由器是基于三层转发的设备，存在路由表提供转发依据，</span><br><span class="line">通过检查IP数据包中的目标IP地址，对比路由表的条目，决定数据从那一下接口转发此数据包，如果匹配到则按照路由表对应接口转发出去，未匹配到则进行默认的路由规则进行转发</span><br></pre></td></tr></table></figure>
+
+<h3 id="25-DHCP的作用是什么，什么情况下需要部署DHCP中继"><a href="#25-DHCP的作用是什么，什么情况下需要部署DHCP中继" class="headerlink" title="25.DHCP的作用是什么，什么情况下需要部署DHCP中继"></a>25.DHCP的作用是什么，什么情况下需要部署DHCP中继</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DHCP即Dynamic Host Configuration Protocol(动态主机配置协议)，主要用来为客户机自动配置IP地址相关的网络参数，包括IP地址，子网掩码，默认网关，DNS服务器等</span><br><span class="line">DHCP通信为广播的方式，因此当需要DHCP服务器为不同广播域（路由或VLAN网段）的客户机分配地址时，就得在网关路由器上开启DHCP中继服务器，这样才能使DHCP通信包跨广播域</span><br></pre></td></tr></table></figure>
+
+<h3 id="26-交换机是如何转发数据包"><a href="#26-交换机是如何转发数据包" class="headerlink" title="26.交换机是如何转发数据包"></a>26.交换机是如何转发数据包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">交换机是通过学习数据帧中的源MAC地址生成交换机的MAC地址表，交换机查看数据帧的目标MAC地址，根据MAC地址表转发数据，如果交换机在表中没有找到匹配项，则进行广播</span><br></pre></td></tr></table></figure>
+
+<h3 id="27-DHCP的作用是什么，如何让一个VLAN中的DHCP服务器为整个企业网络分配IP地址"><a href="#27-DHCP的作用是什么，如何让一个VLAN中的DHCP服务器为整个企业网络分配IP地址" class="headerlink" title="27.DHCP的作用是什么，如何让一个VLAN中的DHCP服务器为整个企业网络分配IP地址"></a>27.DHCP的作用是什么，如何让一个VLAN中的DHCP服务器为整个企业网络分配IP地址</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">中继</span><br></pre></td></tr></table></figure>
+
+<h3 id="28-什么是静态路由？特点是什么？"><a href="#28-什么是静态路由？特点是什么？" class="headerlink" title="28.什么是静态路由？特点是什么？"></a>28.什么是静态路由？特点是什么？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">静态路由是由管理员在路由器中进行手动配置的固定路由，路由明确指出包叨叨目的地必须经过的路径，静态路由不能对网路的改变作出反应，所以一般说静态路由用于网络规模不大，拓扑结构相对固定的网络</span><br></pre></td></tr></table></figure>
+
+<h3 id="29-二层交换机和三层交换机有什么区别？"><a href="#29-二层交换机和三层交换机有什么区别？" class="headerlink" title="29.二层交换机和三层交换机有什么区别？"></a>29.二层交换机和三层交换机有什么区别？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">三层交换机有路由功能，二层交换机没有，三层根据路由表，二层根据MAC地址表</span><br></pre></td></tr></table></figure>
+
+<h3 id="30-VRRP的工作过程"><a href="#30-VRRP的工作过程" class="headerlink" title="30.VRRP的工作过程"></a>30.VRRP的工作过程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.运行VRRP的多个路由器之间通过VRRP报文的交互，从而选择出一个最牛的路由器，作为master路由器，用master设备来转发数据包</span><br><span class="line">2.master路由器，仅仅只有一个，其他路由器为backup路由器</span><br><span class="line">3.master和backup路由器会产生一个虚拟的路由器，也就会有一个虚拟IP地址</span><br></pre></td></tr></table></figure>
+
+<h3 id="31-单臂路由的缺点"><a href="#31-单臂路由的缺点" class="headerlink" title="31.单臂路由的缺点"></a>31.单臂路由的缺点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.“单臂”本身将成为网络的骨干链路，容易形成网络瓶颈</span><br><span class="line">2.子接口依然依托于物理接口，就实际应用而言不灵活</span><br><span class="line">3.每次VLAN间转发都需要查看路由表，严重浪费设备资源</span><br></pre></td></tr></table></figure>
+
+<h3 id="32-有类地址和无类地址的区别是什么？"><a href="#32-有类地址和无类地址的区别是什么？" class="headerlink" title="32.有类地址和无类地址的区别是什么？"></a>32.有类地址和无类地址的区别是什么？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有类网络将IP地址视为3部分：网络字段、地址末尾的主机部分、网络和主机部分之间的子网部分。对于无类网络，有类地址划分的网络部分和子网部分合并为一个单独部分，称为子网或前缀，而地址末端也是主机部分，相对于有类网络,无类网络IP地址的掩码是变长的。在有类网络的基础上，拿出一部分主机ID作为子网ID</span><br></pre></td></tr></table></figure>
+
+<h3 id="33-路由器应用中的NAT指的是什么，有哪几种类型"><a href="#33-路由器应用中的NAT指的是什么，有哪几种类型" class="headerlink" title="33.路由器应用中的NAT指的是什么，有哪几种类型"></a>33.路由器应用中的NAT指的是什么，有哪几种类型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAT指Network Address Translation(网络地址转换)，用来实现内网私有IP地址与公网IP地址的转换，从而实现内网与外网的互通，可以实现局域网主机共享网关的公网IP地址介入互联网，也可以面向互联网发布本来位于局域网内的企业服务器，在此过程中隐藏了内部网络的结构，增强了企业网络的安全性</span><br><span class="line">NAT类型包括：静态NAT，动态NAT（包括PNAT）</span><br></pre></td></tr></table></figure>
+
+<h3 id="34-网络设备上的ACL技术指的是什么，有那几种类型，各自的特点"><a href="#34-网络设备上的ACL技术指的是什么，有那几种类型，各自的特点" class="headerlink" title="34.网络设备上的ACL技术指的是什么，有那几种类型，各自的特点"></a>34.网络设备上的ACL技术指的是什么，有那几种类型，各自的特点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACL指Access control List(访问控制列表)，通过匹配并过滤特征流量，常见类型有：基本ACL，扩展ACL，基本ACL只能匹配IP头部中的源IP地址，扩展ACL可以同时匹配IP头部中的源IP地址和目标IP地址，以及传输层协议的内容，控制流量更加精准</span><br></pre></td></tr></table></figure>
+
+<h3 id="35-OSPF指的是什么，在路由器上是怎么工作的"><a href="#35-OSPF指的是什么，在路由器上是怎么工作的" class="headerlink" title="35.OSPF指的是什么，在路由器上是怎么工作的"></a>35.OSPF指的是什么，在路由器上是怎么工作的</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">OSPF即Open Shortest Path First（开放式最短路径优先协议），是一种动态建立路由表条目的路由协议，用在公司网络内部快速形成一个最短、无环、三层转发路径。</span><br><span class="line">路由器上启用OSPF路由协议以后，其工作过程主要包括三个环节：</span><br><span class="line">1）首先建立 OSPF 邻接表</span><br><span class="line">2）其次同步 OSPF 数据库</span><br><span class="line">3）最后计算 OSPF 路由表</span><br></pre></td></tr></table></figure>
+
+<h3 id="36-IPV6地址总量是多少，如何表示？"><a href="#36-IPV6地址总量是多少，如何表示？" class="headerlink" title="36.IPV6地址总量是多少，如何表示？"></a>36.IPV6地址总量是多少，如何表示？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IPv6即第六代IP协议，IPv6地址使用128个二进制位表示，所以总量为2的128次方。</span><br><span class="line">表示IPv6地址时，采取冒号分隔的16进制数形式。</span><br></pre></td></tr></table></figure>
+
+<h3 id="37-OSPF协议与BGP协议有哪些区别？"><a href="#37-OSPF协议与BGP协议有哪些区别？" class="headerlink" title="37.OSPF协议与BGP协议有哪些区别？"></a>37.OSPF协议与BGP协议有哪些区别？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">OSPF与BGP都是动态路由协议，都是用来快速学习路由表条目。</span><br><span class="line">两者的主要区别体现在以下几个方面：</span><br><span class="line">1）OSPF为内部网关协议；BGP为外部网关协议。</span><br><span class="line">2）OSPF基于链路状态计算路由；BGP本身不计算路由，而是把其他协议生成的路由条目拿来用。</span><br><span class="line">3）OSPF适用于单一自治系统（内部网）；BGP适用于多个自治系统，比如联通网、电信网之间。</span><br><span class="line">4）OSPF基于IP协议组播，协议号是89；BGP基于TCP封装，端口号179。</span><br><span class="line">5）OSPF工作在OSI模型的第3层；BGP工作在OSI模型的第7层。</span><br></pre></td></tr></table></figure>
+
+<h3 id="38-OSPF为什么会卡在init状态"><a href="#38-OSPF为什么会卡在init状态" class="headerlink" title="38.OSPF为什么会卡在init状态"></a>38.OSPF为什么会卡在init状态</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">因为设备之间的互联链路出现了单向链路故障。</span><br></pre></td></tr></table></figure>
+
+<h3 id="39-设备之间无法建立OSPF邻居关系，常见影响因素有哪些？"><a href="#39-设备之间无法建立OSPF邻居关系，常见影响因素有哪些？" class="headerlink" title="39.设备之间无法建立OSPF邻居关系，常见影响因素有哪些？"></a>39.设备之间无法建立OSPF邻居关系，常见影响因素有哪些？</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OSPF邻居之间的互联接口的网络类型不同。</span><br><span class="line">如果是 5 类 LSA 表示的外部路由，也有可能是 5类LSA 中的 forwarding-address (转发地址)</span><br><span class="line">对于本地设备而言，是不可达的。</span><br></pre></td></tr></table></figure>
+
+<h3 id="40-非骨干区域没有直接与骨干区域互联，除了使用虚链路，还有什么其他解决办法"><a href="#40-非骨干区域没有直接与骨干区域互联，除了使用虚链路，还有什么其他解决办法" class="headerlink" title="40.非骨干区域没有直接与骨干区域互联，除了使用虚链路，还有什么其他解决办法"></a>40.非骨干区域没有直接与骨干区域互联，除了使用虚链路，还有什么其他解决办法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在同时连接多个区域路由器上，运行2个 OSPF 进程，将2个OSPF进程互相进行路由导入（路由重分发），让不同区域之间的路由，通过 5 类 LSA 的形式传播到整个 OSPF 网络。</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag"># 学习记录</a>
+              <a href="/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/" rel="tag"># 交换机</a>
+              <a href="/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/" rel="tag"># 路由器</a>
+              <a href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/" rel="tag"># 防火墙</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/13/%E7%94%B5%E8%84%91%E7%9B%B8%E5%85%B3/" rel="prev" title="电脑相关">
+      <i class="fa fa-chevron-left"></i> 电脑相关
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/14/%E7%BD%91%E7%BB%9C%E3%80%81%E7%BA%BF%E7%BC%86%E3%80%81OSI%E4%BB%A5%E5%8F%8ATCP%E6%A8%A1%E5%9E%8B/" rel="next" title="网络、线缆、OSI以及TCP模型">
+      网络、线缆、OSI以及TCP模型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-TCP%E5%92%8CUDP%E9%83%BD%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E5%AE%A2%E6%88%B7%E7%AB%AF-x2F-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%80%9A%E4%BF%A1%EF%BC%8C%E8%BF%99%E4%B8%A4%E4%B8%AA%E5%8D%8F%E8%AE%AE%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">1.TCP和UDP都可以实现客户端&#x2F;服务端通信，这两个协议有哪些区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E4%B8%AD%E7%9A%84MAC%E5%9C%B0%E5%9D%80%E6%8C%87%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%85%B6%E4%BD%9C%E7%94%A8%E5%92%8C%E5%9C%B0%E5%9D%80%E6%9E%84%E6%88%90%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">2.网络通信中的MAC地址指的是什么，其作用和地址构成是怎么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-ARP%E6%98%AF%E7%AC%AC%E5%87%A0%E5%B1%82%E7%9A%84%E5%8D%8F%E8%AE%AE%EF%BC%8C%E5%85%B6%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">3.ARP是第几层的协议，其作用是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%AE%80%E5%8D%95%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">4.简单说一下交换机的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%AF%B7%E5%88%97%E4%B8%BE%E4%BD%A0%E6%89%80%E7%9F%A5%E9%81%93%E7%9A%84%E7%9A%84%E5%BA%94%E7%94%A8%E5%B1%82%E7%9A%84%E5%8D%8F%E8%AE%AE%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E5%90%84%E8%87%AA%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E6%A0%87%E5%87%86%E7%AB%AF%E5%8F%A3%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">5.请列举你所知道的的应用层的协议有哪些，各自的作用及标准端口是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-OSI%E6%A8%A1%E5%9E%8B%E7%94%B1%E4%B8%8B%E5%88%B0%E4%B8%8A%E4%BE%9D%E6%AC%A1%E5%8C%85%E6%8B%AC%E9%82%A3%E5%87%A0%E5%B1%82%EF%BC%9F%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E4%B8%AD%E5%90%84%E5%B1%82%E7%9A%84PDU%E5%8D%95%E4%BD%8D%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">6.</span> <span class="nav-text">6.OSI模型由下到上依次包括那几层？网络通信中各层的PDU单位分别是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%8C%E5%B9%B6%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%E7%BD%91%E7%BB%9C%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">7.</span> <span class="nav-text">7.计算机网络的定义，并谈谈你对网络的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E7%AE%80%E8%BF%B0%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">8.简述三次握手是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%92%8C%E9%9B%86%E7%BA%BF%E5%99%A8%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">9.交换机和集线器有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%92%8C%E8%B7%AF%E7%94%B1%E5%99%A8%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">10.</span> <span class="nav-text">10.交换机和路由器有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-IP%E6%95%B0%E6%8D%AE%E5%8C%85%E6%A0%BC%E5%BC%8F%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">11.</span> <span class="nav-text">11.IP数据包格式是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-TTL%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%93%AA%E4%BA%9B%E5%B7%A5%E5%85%B7%E4%BC%9A%E7%94%A8%E5%88%B0%E5%AE%83"><span class="nav-number">12.</span> <span class="nav-text">12.TTL是什么？作用是什么？哪些工具会用到它</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E4%BB%80%E4%B9%88%E6%98%AFDNS%E5%9F%9F%E5%90%8D%E7%B3%BB%E7%BB%9F%EF%BC%8C%E7%AE%80%E5%8D%95%E6%8F%8F%E8%BF%B0%E5%85%B6%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">13.</span> <span class="nav-text">13.什么是DNS域名系统，简单描述其工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%92%E5%88%86%E5%AD%90%E7%BD%91"><span class="nav-number">14.</span> <span class="nav-text">14.什么是划分子网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-%E7%BD%91%E7%BB%9C%E6%8E%A5%E5%8F%A3%E5%8D%A1%EF%BC%88%E7%BD%91%E5%8D%A1%EF%BC%89%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">15.</span> <span class="nav-text">15.网络接口卡（网卡）的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-%E4%BB%80%E4%B9%88%E6%98%AF%E5%AD%90%E7%BD%91%E6%8E%A9%E7%A0%81"><span class="nav-number">16.</span> <span class="nav-text">16.什么是子网掩码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-TCP%E5%92%8CUDP%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">17.</span> <span class="nav-text">17.TCP和UDP应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-%E4%BB%80%E4%B9%88%E4%BA%8B%E7%AB%AF%E5%8F%A3%E5%8F%B7%EF%BC%9F%E6%9C%89%E4%BD%95%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">18.</span> <span class="nav-text">18.什么事端口号？有何作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-%E4%B8%A4%E6%AE%B5ping%E4%B8%8D%E9%80%9A%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">19.</span> <span class="nav-text">19.两段ping不通可能存在的问题有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-%E4%BD%BF%E7%94%A8ping%E5%91%BD%E4%BB%A4%E4%B8%80%E8%88%AC%E6%AD%A5%E9%AA%A4%E4%BA%8B%E4%BB%80%E4%B9%88"><span class="nav-number">20.</span> <span class="nav-text">20.使用ping命令一般步骤事什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-%E8%AF%B7%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8BVLAN%E6%8A%80%E6%9C%AF"><span class="nav-number">21.</span> <span class="nav-text">21.请简单介绍一下VLAN技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-Trunk%E9%93%BE%E8%B7%AF%E4%B8%8EACCESS%E9%93%BE%E8%B7%AF%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">22.</span> <span class="nav-text">22.Trunk链路与ACCESS链路的区别是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-%E4%BB%80%E4%B9%88%E6%98%AFSTP%E5%8D%8F%E8%AE%AE%EF%BC%9F%E5%85%B6%E4%BD%9C%E7%94%A8%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">23.</span> <span class="nav-text">23.什么是STP协议？其作用和工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-%E8%AF%B7%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">24.</span> <span class="nav-text">24.请描述一下路由器的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-DHCP%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%9C%80%E8%A6%81%E9%83%A8%E7%BD%B2DHCP%E4%B8%AD%E7%BB%A7"><span class="nav-number">25.</span> <span class="nav-text">25.DHCP的作用是什么，什么情况下需要部署DHCP中继</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#26-%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E8%BD%AC%E5%8F%91%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="nav-number">26.</span> <span class="nav-text">26.交换机是如何转发数据包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#27-DHCP%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%A6%82%E4%BD%95%E8%AE%A9%E4%B8%80%E4%B8%AAVLAN%E4%B8%AD%E7%9A%84DHCP%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%BA%E6%95%B4%E4%B8%AA%E4%BC%81%E4%B8%9A%E7%BD%91%E7%BB%9C%E5%88%86%E9%85%8DIP%E5%9C%B0%E5%9D%80"><span class="nav-number">27.</span> <span class="nav-text">27.DHCP的作用是什么，如何让一个VLAN中的DHCP服务器为整个企业网络分配IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#28-%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%99%E6%80%81%E8%B7%AF%E7%94%B1%EF%BC%9F%E7%89%B9%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">28.</span> <span class="nav-text">28.什么是静态路由？特点是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#29-%E4%BA%8C%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%92%8C%E4%B8%89%E5%B1%82%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">29.</span> <span class="nav-text">29.二层交换机和三层交换机有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#30-VRRP%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">30.</span> <span class="nav-text">30.VRRP的工作过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#31-%E5%8D%95%E8%87%82%E8%B7%AF%E7%94%B1%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">31.</span> <span class="nav-text">31.单臂路由的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-%E6%9C%89%E7%B1%BB%E5%9C%B0%E5%9D%80%E5%92%8C%E6%97%A0%E7%B1%BB%E5%9C%B0%E5%9D%80%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">32.</span> <span class="nav-text">32.有类地址和无类地址的区别是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-%E8%B7%AF%E7%94%B1%E5%99%A8%E5%BA%94%E7%94%A8%E4%B8%AD%E7%9A%84NAT%E6%8C%87%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B"><span class="nav-number">33.</span> <span class="nav-text">33.路由器应用中的NAT指的是什么，有哪几种类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-%E7%BD%91%E7%BB%9C%E8%AE%BE%E5%A4%87%E4%B8%8A%E7%9A%84ACL%E6%8A%80%E6%9C%AF%E6%8C%87%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E6%9C%89%E9%82%A3%E5%87%A0%E7%A7%8D%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%90%84%E8%87%AA%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">34.</span> <span class="nav-text">34.网络设备上的ACL技术指的是什么，有那几种类型，各自的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-OSPF%E6%8C%87%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%8A%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="nav-number">35.</span> <span class="nav-text">35.OSPF指的是什么，在路由器上是怎么工作的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-IPV6%E5%9C%B0%E5%9D%80%E6%80%BB%E9%87%8F%E6%98%AF%E5%A4%9A%E5%B0%91%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A1%A8%E7%A4%BA%EF%BC%9F"><span class="nav-number">36.</span> <span class="nav-text">36.IPV6地址总量是多少，如何表示？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-OSPF%E5%8D%8F%E8%AE%AE%E4%B8%8EBGP%E5%8D%8F%E8%AE%AE%E6%9C%89%E5%93%AA%E4%BA%9B%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">37.</span> <span class="nav-text">37.OSPF协议与BGP协议有哪些区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#38-OSPF%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%8D%A1%E5%9C%A8init%E7%8A%B6%E6%80%81"><span class="nav-number">38.</span> <span class="nav-text">38.OSPF为什么会卡在init状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#39-%E8%AE%BE%E5%A4%87%E4%B9%8B%E9%97%B4%E6%97%A0%E6%B3%95%E5%BB%BA%E7%AB%8BOSPF%E9%82%BB%E5%B1%85%E5%85%B3%E7%B3%BB%EF%BC%8C%E5%B8%B8%E8%A7%81%E5%BD%B1%E5%93%8D%E5%9B%A0%E7%B4%A0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">39.</span> <span class="nav-text">39.设备之间无法建立OSPF邻居关系，常见影响因素有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#40-%E9%9D%9E%E9%AA%A8%E5%B9%B2%E5%8C%BA%E5%9F%9F%E6%B2%A1%E6%9C%89%E7%9B%B4%E6%8E%A5%E4%B8%8E%E9%AA%A8%E5%B9%B2%E5%8C%BA%E5%9F%9F%E4%BA%92%E8%81%94%EF%BC%8C%E9%99%A4%E4%BA%86%E4%BD%BF%E7%94%A8%E8%99%9A%E9%93%BE%E8%B7%AF%EF%BC%8C%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B6%E4%BB%96%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="nav-number">40.</span> <span class="nav-text">40.非骨干区域没有直接与骨干区域互联，除了使用虚链路，还有什么其他解决办法</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">crayon</p>
+  <div class="site-description" itemprop="description">希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrayonW" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrayonW" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/7055393693" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;7055393693" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douban.com/people/194215771/?_i=04044813bwuTUN" title="豆瓣 → https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;194215771&#x2F;?_i&#x3D;04044813bwuTUN" rel="noopener" target="_blank"><i class="fab fa-douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/mrzhu-xiao-zhuai" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;mrzhu-xiao-zhuai" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">crayon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

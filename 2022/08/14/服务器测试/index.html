@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crayonw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="与人交往要守住态度，值得的我一定真心相待不辜负，不值得的一笑而过不再多说。要做一个有原则的人，不亏待每一份热情，也绝不讨好任何的冷漠。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务器测试">
+<meta property="og:url" content="https://crayonw.github.io/2022/08/14/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%95/">
+<meta property="og:site_name" content="Crayon">
+<meta property="og:description" content="与人交往要守住态度，值得的我一定真心相待不辜负，不值得的一笑而过不再多说。要做一个有原则的人，不亏待每一份热情，也绝不讨好任何的冷漠。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-13T16:15:09.000Z">
+<meta property="article:modified_time" content="2022-08-13T16:16:18.611Z">
+<meta property="article:author" content="crayon">
+<meta property="article:tag" content="服务器">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crayonw.github.io/2022/08/14/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>服务器测试 | Crayon</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Crayon</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个服务器，网络项目交付工程师，业余程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crayonw.github.io/2022/08/14/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="crayon">
+      <meta itemprop="description" content="希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Crayon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          服务器测试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-14 00:15:09 / 修改时间：00:16:18" itemprop="dateCreated datePublished" datetime="2022-08-14T00:15:09+08:00">2022-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">专业知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote><p>与人交往要守住态度，值得的我一定真心相待不辜负，不值得的一笑而过不再多说。要做一个有原则的人，不亏待每一份热情，也绝不讨好任何的冷漠。</p>
+</blockquote>
+
+<span id="more"></span>
+
+<ol>
+<li><strong>物理服务器配置检查</strong></li>
+</ol>
+<ul>
+<li><ol>
+<li>查看处理器信息：cat &#x2F;proc&#x2F;cpuinfo(关注 cpu 的核心数量，频率，支持的功能开启状态，超线程)</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>查看内存信息：cat &#x2F;proc&#x2F;meminfo（大小，频率，品牌）</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>查看内存条查法顺序：dmidecode 查看 memory（可查看每个内存槽位是否有内存条）</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>查看硬盘信息：fdisk -l&#x2F;lsblk（硬盘分区详细情况，硬盘分布）</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>查看电源信息：从服务器背面电源位置进行查看</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>查看网卡信息，输入命令 lspci | grep Ethernet</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>查看网口信息，ifconfig -a&#x2F;ethtool eth0</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>查看主板信息，dmidecode -t bios（关注固件版本）</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p><strong>物理服务器各部件的作用和指示灯的含义</strong></p>
+<blockquote>
+<p>一般绿灯正常运行，黄灯存在警告，红灯存在故障</p>
+</blockquote>
+</li>
+<li><p><strong>电源、风扇和硬盘的冗余性检查</strong></p>
+<blockquote>
+<p>通过手动直接拔出硬件查看是否存在冗余，硬盘除 raid0 和直通其余类型均可冗余（但冗余存在限制）</p>
+</blockquote>
+</li>
+<li><p><strong>ipmi 功能验证</strong></p>
+<ul>
+<li><ol>
+<li>验证服务器 ipmi 具备开机、关机、重启、设置 PXE 引导、查看服务器健康状态、查看日志等功能（ipmi -I lanplus -H 192.168.5.7 -U zteroot -P Superuser9! chassis power on&#x2F;power off&#x2F;power cycle&#x2F;bootdev pxe&#x2F;sdr&#x2F;sel list&#x2F;clear）</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>服务器 BMC 功能检查</strong></p>
+</li>
+</ol>
+<ul>
+<li>检查并登记所有送测服务器的 BMC 版本</li>
+<li>BMC 检查服务器状态和查看报错日志的方法</li>
+<li>通过操作系统命令，查看 BMC 版本（Firmware Revision）,查看序列号，确认 BMC 和 BIOS 中的序列号已知</li>
+<li>验证通过操作系统命令，查看和设置 BMC 参数命令</li>
+</ul>
+<ol start="6">
+<li><strong>BMC 管理</strong></li>
+<li><strong>BMC 对整机的故障管理和 FW 升级</strong></li>
+<li><strong>BIOS 快捷键测试</strong></li>
+<li><strong>BIOS 界面功能检查</strong></li>
+<li><strong>利用系统命令进行服务器 BIOS 设置和检查</strong></li>
+</ol>
+<ul>
+<li>dmidecode -t bios #查看 BIOS 版本</li>
+<li>cpupower idle-info #检查 Cstate 开关</li>
+<li>cat &#x2F;proc&#x2F;cpuinfo | grep “sibling” | uniq</li>
+<li>cat &#x2F;proc&#x2F;cpuinfo | grep “cpu cores” | uniq #检查 HT 超线程技术开关</li>
+<li>cat &#x2F;proc&#x2F;cpuinfo | grep vmx #查看 cpu 虚拟化功能</li>
+</ul>
+<ol start="11">
+<li><strong>HTML5 KVM 功能测试</strong></li>
+<li><strong>通过 ISO 光盘安装操作系统</strong></li>
+<li><strong>IPV6 功能测试</strong></li>
+<li><strong>服务器 Redfish 测试</strong></li>
+<li><strong>Kdump 生成测试</strong></li>
+<li><strong>主板晶振检测</strong></li>
+<li><strong>电源模块高可用测试</strong></li>
+<li><strong>双网卡绑定的高可用测试</strong></li>
+</ol>
+<ul>
+<li><ol>
+<li>在操作系统中将制定网卡进行双网卡绑定，绑定为负载均衡 xor 模式</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在操作系统中发起到交换机网关的 ping</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>操作系统中打开 nmon，持续观察网络流量</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>在服务器端拔掉主网卡网线，观察 ping 的丢包情况</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>插回主网线，观察 ping 的丢包情况，查看 nmon 中流量是否回到主网卡</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>在服务器端拔掉备网卡网线，观察 ping 的丢包情况</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>插回备网线，观察 ping 的丢包情况</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>重复上述步骤 2-7 次，查看丢包情况</li>
+</ol>
+</li>
+</ul>
+<ol start="19">
+<li><strong>服务器综合性能打分</strong></li>
+</ol>
+<ul>
+<li>通过 Unixbench 为服务器进行整体打分</li>
+</ul>
+<ol start="20">
+<li><strong>网络带宽性能测试</strong></li>
+</ol>
+<ul>
+<li><ol>
+<li>机器上安装 netperf server 端和 client 端</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>配置双网卡绑定负载均衡模式</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>发起 netperf 网络压力，观察 nmon 中的网卡流量</li>
+</ol>
+</li>
+</ul>
+<ol start="21">
+<li><strong>服务器耗电量测试</strong></li>
+</ol>
+<ul>
+<li><ol>
+<li>在主机上使用工具发起压力测试，从 25%-100%</li>
+</ol>
+</li>
+<li>cpu：stress -c CPU 核数</li>
+<li>内存：Memtester</li>
+<li>硬盘：dd if&#x3D;&#x2F;dev&#x2F;sdx of&#x3D;&#x2F;dev&#x2F;zero</li>
+<li><ol start="2">
+<li>通过 ipmi 读出当前服务器用电量</li>
+</ol>
+</li>
+</ul>
+<ol start="22">
+<li><strong>服务器 cpu 性能测试</strong></li>
+</ol>
+<ul>
+<li>使用 spec2017 软件</li>
+</ul>
+<ol start="23">
+<li><strong>服务管理</strong></li>
+</ol>
+<ul>
+<li>启动服务 systemctl start sshd service</li>
+<li>关闭服务 systemctl stop sshd service</li>
+<li>重启服务 systemctl restart sshd service</li>
+<li>重新加载服务配置文件 systemctl reload sshd service</li>
+<li>检查服务运作状态 systemctl status sshd service&#x2F;is-active</li>
+<li>展开所有服务状态详细信息 systemctl list-units –type service –all</li>
+<li>允许服务开机启动 systemctl enable sshd service</li>
+<li>禁止服务开机启动 systemctl disable sshd service</li>
+</ul>
+<ol start="24">
+<li><strong>网络配置测试</strong></li>
+</ol>
+<ul>
+<li>在&#x2F;etc&#x2F;sysconfig&#x2F;network-script 目录下</li>
+<li>nmcli con add type bridge con-name brl ifname brl</li>
+<li>nmcli con mod brl ipv4 addresses 192.168.3.88</li>
+<li>nmcli con mod brl ipv4 method manual</li>
+<li>nmcli con add type bridge-slave con-name brl-port0 ifname ens6f0 master brl</li>
+</ul>
+<ol start="25">
+<li><strong>用户管理</strong></li>
+<li><strong>python-3.7.4 测试</strong></li>
+<li><strong>openssh-8.0p1 测试</strong></li>
+<li><strong>apache 安装及功能测试</strong></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># 服务器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/14/%E7%BD%91%E7%BB%9C%E3%80%81%E7%BA%BF%E7%BC%86%E3%80%81OSI%E4%BB%A5%E5%8F%8ATCP%E6%A8%A1%E5%9E%8B/" rel="prev" title="网络、线缆、OSI以及TCP模型">
+      <i class="fa fa-chevron-left"></i> 网络、线缆、OSI以及TCP模型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/14/%E8%B7%B3%E6%9D%BF%E6%9C%BAjumpserver/" rel="next" title="跳板机jumpserver">
+      跳板机jumpserver <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">crayon</p>
+  <div class="site-description" itemprop="description">希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrayonW" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrayonW" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/7055393693" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;7055393693" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douban.com/people/194215771/?_i=04044813bwuTUN" title="豆瓣 → https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;194215771&#x2F;?_i&#x3D;04044813bwuTUN" rel="noopener" target="_blank"><i class="fab fa-douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/mrzhu-xiao-zhuai" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;mrzhu-xiao-zhuai" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">crayon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

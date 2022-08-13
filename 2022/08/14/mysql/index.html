@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crayonw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="很多人应该都吃过“茶叶蛋”，蛋壳破裂最多的，才是最入味。同样，人生经历愈丰富，挫折愈多，愈有味道。苦难可以帮助一个人成长，而之后的快乐是你想象不到的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql操作">
+<meta property="og:url" content="https://crayonw.github.io/2022/08/14/mysql/">
+<meta property="og:site_name" content="Crayon">
+<meta property="og:description" content="很多人应该都吃过“茶叶蛋”，蛋壳破裂最多的，才是最入味。同样，人生经历愈丰富，挫折愈多，愈有味道。苦难可以帮助一个人成长，而之后的快乐是你想象不到的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h55m19iy5xj20zs0k6jvw.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h55m017r5kj20zg0ek41k.jpg">
+<meta property="article:published_time" content="2022-08-13T16:26:11.000Z">
+<meta property="article:modified_time" content="2022-08-13T16:38:04.033Z">
+<meta property="article:author" content="crayon">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/e6c9d24ely1h55m19iy5xj20zs0k6jvw.jpg">
+
+<link rel="canonical" href="https://crayonw.github.io/2022/08/14/mysql/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mysql操作 | Crayon</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Crayon</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个服务器，网络项目交付工程师，业余程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crayonw.github.io/2022/08/14/mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="crayon">
+      <meta itemprop="description" content="希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Crayon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysql操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-14 00:26:11 / 修改时间：00:38:04" itemprop="dateCreated datePublished" datetime="2022-08-14T00:26:11+08:00">2022-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">专业知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote><p>很多人应该都吃过“茶叶蛋”，蛋壳破裂最多的，才是最入味。同样，人生经历愈丰富，挫折愈多，愈有味道。苦难可以帮助一个人成长，而之后的快乐是你想象不到的。</p>
+</blockquote>
+
+<span id="more"></span>
+
+<h1 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h1><h2 id="1-使用-mysqldump-进行数据库备份"><a href="#1-使用-mysqldump-进行数据库备份" class="headerlink" title="1. 使用 mysqldump 进行数据库备份"></a>1. 使用 mysqldump 进行数据库备份</h2><h4 id="1-逻辑备份（备份完整的-sql-语句）"><a href="#1-逻辑备份（备份完整的-sql-语句）" class="headerlink" title="1. 逻辑备份（备份完整的 sql 语句）"></a>1. 逻辑备份（备份完整的 sql 语句）</h4><blockquote>
+<p>mysqldump 是通过 sql 语句的形式存储，成为逻辑备份，效率不是很高，当数据 30GB 以内的时候可以使用，超过 30GB 备份花费的时间可能过长</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -u 用户名 -p 密码 参数 数据库名&gt; 备份文件名.sql</span><br><span class="line">mysqldump &lt; /opt/bak.sql</span><br><span class="line">mysqldump oldboy &gt; /opt/mysql_bak.sql # 密码配置在文件里</span><br><span class="line">msqldump -B oldboy &gt; /opt/mysql_bak_B.sql # 增加了创建数据库和连接数据的语句</span><br><span class="line">mysqldump -B oldboy | gzip &gt; /opt/mysql_bak_B.sql.gz # 压缩备份的文件，备份压缩包是原来的 1/3 大小</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-备份多个库的实践"><a href="#2-备份多个库的实践" class="headerlink" title="2. 备份多个库的实践"></a>2. 备份多个库的实践</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysqldump oldboy oldboy_utf8 | gzip &gt; /opt/test.sql.gz</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">分库备份操作</span></span><br><span class="line">mysql -e &quot;show databases;&quot; | egrep -v &quot;_schema|atabase&quot; # 取出需要备份的库名列表</span><br><span class="line">mysql -e &quot;show databases;&quot; | egrep -v &quot;_schema|atabase&quot; ｜ sed -r &#x27;s#^(.*)#mysqldump -B \1|gzip &gt; /tmp/\1.sql.gz#g&#x27; # 利用命令拼接多个mysqldump备份命令</span><br><span class="line">mysql -e &quot;show databases;&quot; | egrep -v &quot;_schema|atabase&quot; ｜ sed -r &#x27;s#^(.*)#mysqldump -B \1|gzip &gt; /tmp/\1.sql.gz#g&#x27; ｜ bash</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-备份表"><a href="#3-备份表" class="headerlink" title="3. 备份表"></a>3. 备份表</h4><ul>
+<li>单个表 mysqldump oldboy test &gt; &#x2F;tmp&#x2F;oldboy_test.sql</li>
+<li>多个表 mysqldump mysql user db &gt; &#x2F;tmp&#x2F;mysql.sql</li>
+</ul>
+<blockquote>
+<p>如果多个库或多个表备份到了一个文件里，那么这种情况，如何恢复单个库或者单个表？<br>找到第三方测试库，将所有备份都导入到这个测试库里，然后把需要的单库或表再备份出来，最后恢复到需要恢复的正式库里。（最好是在备份时就提前做好分库分表备份）</p>
+</blockquote>
+<h4 id="4-备份数据库表结构或数据"><a href="#4-备份数据库表结构或数据" class="headerlink" title="4. 备份数据库表结构或数据"></a>4. 备份数据库表结构或数据</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -b oldboy &gt; /opt/oldboy.sql # 备份oldboy库所有表结构，可指定某一个表</span><br><span class="line">mysqldump -t oldboy &gt; /opt/oldboy1.sql # 备份oldboy库所有表的内容，可指定某一个表</span><br><span class="line">mysqldump oldboy test --compact -T /tmp/ # 5.6版本因为安全权限问题不能直接导出, --compact是减少无用输出的意思</span><br><span class="line">grep sec /etc/my.cnf</span><br><span class="line">secure_file_priv=&#x27;&#x27;# 在[mysql]模块下增加</span><br><span class="line">/etc/init.d/mysqld restart</span><br></pre></td></tr></table></figure>
+
+<p><strong>mysqldump 参数</strong></p>
+<ul>
+<li><p>-d 参数的作用是只备份库表结构（sql 语句形式）</p>
+</li>
+<li><p>-t 参数的作用是只备份表内的数据（sql 语句形式）</p>
+</li>
+<li><p>-T 将库表和数据分离成不通的文件，数据是纯文本，表结构是 SQL 语句</p>
+<h4 id="5-刷新-binlog-文件参数（-F）"><a href="#5-刷新-binlog-文件参数（-F）" class="headerlink" title="5. 刷新 binlog 文件参数（-F）"></a>5. 刷新 binlog 文件参数（-F）</h4><p>（1）binlog 是什么</p>
+  <p>binlog是一个二进制格式的文件，用于记录用户对数据库更新的SQL语句信息，例如更改数据库库表和更改表内容的SQL语句都会记录到binlog里，但是对库表等内容的查询则不会记录到日志中</p>
+（2）binlog对于备份的作用
+  <p>当有数据写入到数据库时，还会同时把更新的SQL语句写入到对应的binlog文件里，使用binlog文件恢复数据，称为二进制增量数据恢复</p>
+（3）为什么要刷新binlog
+  <p>刷新（切割）binlog日志的目的就是确定全备和增量备（binlog文件）的临界点，当全备完成后，全备时刻以前的binlog文件就无用了</p>
+（4）如何开启binlog功能
+  <p>binlog文件生效需要一个参数：log_bin,编辑配置文件增加log_bin参数即可</p>
+（5）使用-F刷新binlog日志
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -F -B oldboy | gzip &gt; /opt/bak_$(date+%F).sql.gz</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="6-记录-binlog-位置的特殊参数-–master-data"><a href="#6-记录-binlog-位置的特殊参数-–master-data" class="headerlink" title="6. 记录 binlog 位置的特殊参数(–master-data)"></a>6. 记录 binlog 位置的特殊参数(–master-data)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@oldboy ~]# mysqldump --master-data=1 oldboy --compact|head -1</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">&lt;==--master-data=1的结果。</span></span><br><span class="line">CHANGE MASTER TO MASTER_LOG_FILE=&#x27;oldboy-bin.000004&#x27;, MASTER_LOG_POS=120;</span><br><span class="line">[root@oldboy ~]# mysqldump --master-data=2 oldboy --compact|head -1</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">&lt;==--master-data=2的结果。</span></span><br><span class="line">-- CHANGE MASTER TO MASTER_LOG_FILE=&#x27;oldboy-bin.000004&#x27;, MASTER_LOG_POS=120;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-锁定所有表备份（-x-参数）"><a href="#7-锁定所有表备份（-x-参数）" class="headerlink" title="7. 锁定所有表备份（-x 参数）"></a>7. 锁定所有表备份（-x 参数）</h4><p>默认情况下，在使用mysqldump命令备份期间，数据库依然是可以写入数据的，此时，备份的数据就不是某一个时刻的一致性备份了，会给数据恢复造成困扰</p>
+
+<h4 id="8-innodb-表特有的备份参数（–single-transaction）"><a href="#8-innodb-表特有的备份参数（–single-transaction）" class="headerlink" title="8. innodb 表特有的备份参数（–single-transaction）"></a>8. innodb 表特有的备份参数（–single-transaction）</h4><p>当使用mysqldump的--single-transaction对innodb表进行备份时，会开启一个事务，并将整个备份过程放到一个事务里，以确保执行本次dump会话时，不会看到其他链接会话已经提交的数据，**仅仅只有innodb表的特有备份参数，只有事务型引擎，才能支持这样的备份功能**</p>
+
+<h4 id="9-mysqldump-重要参数"><a href="#9-mysqldump-重要参数" class="headerlink" title="9. mysqldump 重要参数"></a>9. mysqldump 重要参数</h4><p><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h55m19iy5xj20zs0k6jvw.jpg" alt="mysqldump重要参数" title="wangjun"><br><img src="https://tva1.sinaimg.cn/large/e6c9d24ely1h55m017r5kj20zg0ek41k.jpg" alt="mysqldump重要参数-1" title="wangjun"></p>
+<ul>
+<li>innodb 引擎的备份命令<blockquote>
+<p>mysqldump -A -B –master-data&#x3D;2 –single-transaction | gzip &gt; &#x2F;opt&#x2F;all.sql.gz</p>
+</blockquote>
+</li>
+<li>多引擎混合（例如 myisam 与 innodb 混合）<blockquote>
+<p>mysqldump -A -B –master-data&#x3D;2 | gzip &gt; &#x2F;opt&#x2F;all_$(date + %F).sql.gz<br><strong>如果数据库用到了存储过程和函数特殊功能，就加上-R 备份，如果用到了触发器功能则加上–triggers 备份，如果考虑切割 binlog 日志也可以加-F，如果不想备份所有库，也可以取消-A，独立指定多个库名备份</strong></p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">select * from test into outfile &quot;/tmp/oldboy_test1.txt&quot;;</span><br><span class="line">select * from test into outfile &quot;/tmp/oldboy_test2.txt&quot; character set utf8;</span><br><span class="line">select * from test into outfile &quot;/tmp/oldboy_test3.txt&quot; terminated by &#x27;-&#x27;;</span><br><span class="line">select * from test into outfile &quot;/tmp/oldboy_test4.txt&quot; fields enclosed by &#x27;&quot;&#x27;;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">导入表命令语法</span></span><br><span class="line">LOAD DATA INFILE &#x27;filename&#x27; INTO TABLE tbl_name import option</span><br><span class="line">delete from test;</span><br><span class="line">load data infile &#x27;/tmp/oldboy_test1.txt&#x27; into table test;</span><br><span class="line">load data infile &#x27;/tmp/oldboy_test2.txt&#x27; into table test fields terminated by &#x27;-&#x27;;</span><br><span class="line">load data infile &#x27;/tmp/oldboy_test3.txt&#x27; into table test fields enclosed by &#x27;&quot;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-恢复数据库实践"><a href="#2-恢复数据库实践" class="headerlink" title="2. 恢复数据库实践"></a>2. 恢复数据库实践</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/14/linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" rel="prev" title="linux系统磁盘管理">
+      <i class="fa fa-chevron-left"></i> linux系统磁盘管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/14/zabbix%E6%9C%8D%E5%8A%A1%E7%9B%91%E6%8E%A7/" rel="next" title="zabbix服务监控">
+      zabbix服务监控 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql"><span class="nav-number">1.</span> <span class="nav-text">mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BD%BF%E7%94%A8-mysqldump-%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD"><span class="nav-number">1.1.</span> <span class="nav-text">1. 使用 mysqldump 进行数据库备份</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E9%80%BB%E8%BE%91%E5%A4%87%E4%BB%BD%EF%BC%88%E5%A4%87%E4%BB%BD%E5%AE%8C%E6%95%B4%E7%9A%84-sql-%E8%AF%AD%E5%8F%A5%EF%BC%89"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1. 逻辑备份（备份完整的 sql 语句）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%A4%87%E4%BB%BD%E5%A4%9A%E4%B8%AA%E5%BA%93%E7%9A%84%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2. 备份多个库的实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%A4%87%E4%BB%BD%E8%A1%A8"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">3. 备份表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E7%BB%93%E6%9E%84%E6%88%96%E6%95%B0%E6%8D%AE"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">4. 备份数据库表结构或数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%B7%E6%96%B0-binlog-%E6%96%87%E4%BB%B6%E5%8F%82%E6%95%B0%EF%BC%88-F%EF%BC%89"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">5. 刷新 binlog 文件参数（-F）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E8%AE%B0%E5%BD%95-binlog-%E4%BD%8D%E7%BD%AE%E7%9A%84%E7%89%B9%E6%AE%8A%E5%8F%82%E6%95%B0-%E2%80%93master-data"><span class="nav-number">1.1.0.6.</span> <span class="nav-text">6. 记录 binlog 位置的特殊参数(–master-data)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E9%94%81%E5%AE%9A%E6%89%80%E6%9C%89%E8%A1%A8%E5%A4%87%E4%BB%BD%EF%BC%88-x-%E5%8F%82%E6%95%B0%EF%BC%89"><span class="nav-number">1.1.0.7.</span> <span class="nav-text">7. 锁定所有表备份（-x 参数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-innodb-%E8%A1%A8%E7%89%B9%E6%9C%89%E7%9A%84%E5%A4%87%E4%BB%BD%E5%8F%82%E6%95%B0%EF%BC%88%E2%80%93single-transaction%EF%BC%89"><span class="nav-number">1.1.0.8.</span> <span class="nav-text">8. innodb 表特有的备份参数（–single-transaction）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-mysqldump-%E9%87%8D%E8%A6%81%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.0.9.</span> <span class="nav-text">9. mysqldump 重要参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%81%A2%E5%A4%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.2.</span> <span class="nav-text">2. 恢复数据库实践</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">crayon</p>
+  <div class="site-description" itemprop="description">希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrayonW" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrayonW" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/7055393693" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;7055393693" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douban.com/people/194215771/?_i=04044813bwuTUN" title="豆瓣 → https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;194215771&#x2F;?_i&#x3D;04044813bwuTUN" rel="noopener" target="_blank"><i class="fab fa-douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/mrzhu-xiao-zhuai" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;mrzhu-xiao-zhuai" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">crayon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crayonw.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一个人说这事九个人说能干，他就不是事业，十个人中，九个人说这事干不成，那这就是事业。成功的人只剩十分之一。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux系统磁盘管理">
+<meta property="og:url" content="https://crayonw.github.io/2022/08/14/linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">
+<meta property="og:site_name" content="Crayon">
+<meta property="og:description" content="一个人说这事九个人说能干，他就不是事业，十个人中，九个人说这事干不成，那这就是事业。成功的人只剩十分之一。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-13T16:23:11.000Z">
+<meta property="article:modified_time" content="2022-08-13T16:27:20.167Z">
+<meta property="article:author" content="crayon">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="磁盘">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crayonw.github.io/2022/08/14/linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>linux系统磁盘管理 | Crayon</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Crayon</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一个服务器，网络项目交付工程师，业余程序员</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crayonw.github.io/2022/08/14/linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="crayon">
+      <meta itemprop="description" content="希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Crayon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux系统磁盘管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-14 00:23:11 / 修改时间：00:27:20" itemprop="dateCreated datePublished" datetime="2022-08-14T00:23:11+08:00">2022-08-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">专业知识</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote><p>一个人说这事九个人说能干，他就不是事业，十个人中，九个人说这事干不成，那这就是事业。成功的人只剩十分之一。</p>
+</blockquote>
+
+<span id="more"></span>ll
+
+<ol>
+<li><strong>linux系统分区应了解的常识</strong></li>
+</ol>
+<ul>
+<li>硬盘分区实质上是对硬盘的一种格式化，然后才能使用硬盘保存各种信息，在创建分区时，就已经设置好了硬盘的各项物理参数，指定了硬盘主引导记录（即Master Boot Record，一般称为MBR）和引导记录备份的存放位置。</li>
+<li>MBR概述：全称为Master Boot Record,即硬盘的主引导记录；是位于磁盘最前边的一段引导(loader)代码。它负责磁盘操作系统(DOS)对磁盘进行读写时分区合法性的判别、分区引导信息的定位，它由磁盘操作系统(DOS)在对硬盘进行初始化时产生的。<blockquote>
+<ol>
+<li>主引导程序即主引导记录(MBR)(占446个字节)<br>可在FDISK程序中找到，它用于硬盘启动时将系统控制转给用户指定的并在分区表中登记了的某个操作系统。</li>
+<li>磁盘分区表项(DPT， Disk Partition Table)<br>由四个分区表项构成（每个16个字节）<br>负责说明磁盘上的分区情况，其内容由磁盘介质及用户在使用FDISK定义分区时决定</li>
+<li>结束标志(占2个字节)<br>其值为AA55，存储时低位在前，高位在后，即看上去是55AA（十六进制）</li>
+</ol>
+</blockquote>
+</li>
+<li>分区编号：主分区1-4，逻辑分区5</li>
+<li>LINUX规定：逻辑分区必须建立在扩展分区智商，而不是建立在主分区上</li>
+<li>分区作用：<blockquote>
+<ol>
+<li>主分区：主要是用来启动操作系统的，它主要放的是操作系统的启动或引导程序，&#x2F;boot分区最好放在主分区上</li>
+<li>扩展分区是不能使用的，它只是作为逻辑分区的容器存在的，先创建一个扩展分区，在扩展分区之上创建逻辑分区</li>
+<li>我们真正存放数据的是主分区和逻辑分区，大量数据都放在逻辑分区中<br>  <em><strong>注意：使用分区工具fdisk对磁盘进行操作，分区，格式化</strong></em><br>  <em><strong>注意：</strong></em><br>  <em><strong>主分区+扩展分区 最多只能有4个</strong></em><br>  <em><strong>扩展分区不能直接使用，扩展分区必须首先创建成逻辑分区才能使用</strong></em><br>  <em><strong>逻辑分区可以是0个  1个  多个</strong></em></li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<ol start="2">
+<li><strong>磁盘管理命令</strong></li>
+</ol>
+<ul>
+<li>fdisk：linux分区表操作工具软件</li>
+<li>n：添加新的分区</li>
+<li>p：查看分区信息</li>
+<li>w：保存退出</li>
+<li>q：不保存退出</li>
+<li>d：删除分区</li>
+<li>t：改变分区类型</li>
+</ul>
+<ol start="3">
+<li><strong>查看磁盘命令</strong></li>
+</ol>
+<ul>
+<li>ls &#x2F;dev&#x2F;sd*    #查看磁盘<blockquote>
+<p>其中：a-z表示设备的序号，如sda表示第一块scsi硬盘，sdb就是第二块<br>n表示每块磁盘上划分的磁盘分区编号</p>
+</blockquote>
+</li>
+</ul>
+<ol start="4">
+<li><strong>创建主分区演示</strong></li>
+</ol>
+<ul>
+<li>fdisk &#x2F;dev&#x2F;sdb #管理分区     第一步：添加磁盘创建主分区</li>
+<li>n              #新建分区</li>
+<li>p              #分区类型，选择主分区</li>
+<li>分区磁盘的起始位，</li>
+<li>P              #查询分区是否创建成功</li>
+<li>w              #保存退出</li>
+<li>ls &#x2F;dev&#x2F;sd*     第二步：查看磁盘</li>
+<li>mkfs.xfs &#x2F;dev&#x2F;sdb1    第三步：格式化成xfs文件系统</li>
+<li>mount &#x2F;dev&#x2F;sdb1 &#x2F;xfs_du  第四步：挂载至本地目录</li>
+<li>df -h       第五步：查看挂载信息</li>
+<li>echo “&#x2F;dev&#x2F;sdb1&#x2F;xfs_du xfs default 0 0” &gt;&gt; &#x2F;etc&#x2F;fstab  第六步：开机自动挂载</li>
+<li>echo “mount &#x2F;dev&#x2F;sdb1 &#x2F;xfs_du” &gt;&gt; &#x2F;etc&#x2F;rc.local</li>
+<li>chmod +x &#x2F;etc&#x2F;rc.d&#x2F;rc.local  #给个执行权限</li>
+<li>&#x2F;etc&#x2F;rc.local</li>
+<li>是使用者自订开机启动程序we年，把需要开机自动运行的程序写在这个脚本里</li>
+</ul>
+<ol start="5">
+<li><strong>fdisk分区演示-创建逻辑分区</strong></li>
+<li><strong>本地目录创建交换分区</strong></li>
+</ol>
+<ul>
+<li>mkdier &#x2F;swap   #第一步：创建目录</li>
+<li>dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;&#x2F;swap&#x2F;swap bs&#x3D;2M count&#x3D;2014 #第二步：创建空文件</li>
+<li>mkswap &#x2F;swap&#x2F;swap  #第三步：格式化为swap格式</li>
+<li>echo “&#x2F;swap&#x2F;swap swap swap defaults 0 0” &gt;&gt; &#x2F;etc&#x2F;fstab #第四步：写入文件&#x2F;etc&#x2F;fstab开机自动挂载</li>
+<li>chmod 0600 &#x2F;swap&#x2F;swap #第五步：修改权限，挂载</li>
+<li>mount -a</li>
+<li>swapon -a  #第六步：开始swap</li>
+<li>free -h</li>
+<li>swapoff -a  #最后：关闭swap</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
+              <a href="/tags/%E7%A3%81%E7%9B%98/" rel="tag"># 磁盘</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/08/14/linux%E5%91%BD%E4%BB%A4/" rel="prev" title="linux命令">
+      <i class="fa fa-chevron-left"></i> linux命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/08/14/mysql/" rel="next" title="mysql操作">
+      mysql操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">crayon</p>
+  <div class="site-description" itemprop="description">希望能够与各领域的大佬交流，互相学习，互相进步；认清工作的本质，并坚定的在技术这条道路上不断前行，实现自己心中的理想。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrayonW" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrayonW" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/7055393693" title="微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;7055393693" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.douban.com/people/194215771/?_i=04044813bwuTUN" title="豆瓣 → https:&#x2F;&#x2F;www.douban.com&#x2F;people&#x2F;194215771&#x2F;?_i&#x3D;04044813bwuTUN" rel="noopener" target="_blank"><i class="fab fa-douban fa-fw"></i>豆瓣</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/mrzhu-xiao-zhuai" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;mrzhu-xiao-zhuai" rel="noopener" target="_blank"><i class="fab fa-zhihu fa-fw"></i>知乎</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">crayon</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
